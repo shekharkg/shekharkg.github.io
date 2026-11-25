@@ -1,0 +1,13 @@
+{
+  "_comment": "contributions is rewritten by `npm run oss` (merged PRs to other people's repos). repos is curated by hand.",
+  "updated": null,
+  "contributions": [],
+  "repos": [
+    { "name": "OMDB", "url": "https://github.com/shekharkg/OMDB", "language": "Kotlin", "year": 2019, "text": "Movie search sample using MVVM and the OMDB API." },
+    { "name": "GitHub-PR", "url": "https://github.com/shekharkg/GitHub-PR", "language": "Kotlin", "year": 2022, "text": "Lists a repository's pull requests from the GitHub API." },
+    { "name": "Tic-Tac-Toe MVVM", "url": "https://github.com/shekharkg/Tic-Tac-Toe-MVVM-Playground-", "language": "Kotlin", "year": 2019, "text": "Tic-tac-toe as a small, testable MVVM reference." },
+    { "name": "Export-SMS", "url": "https://github.com/shekharkg/Export-SMS", "language": "Java", "year": 2016, "text": "Export the Android SMS inbox to a spreadsheet." },
+    { "name": "Price-Tag", "url": "https://github.com/shekharkg/Price-Tag", "language": "Java", "year": 2014, "text": "Compare a product's price across Indian online stores." },
+    { "name": "LibGDX-DropDemo", "url": "https://github.com/shekharkg/LibGDX-DropDemo", "language": "Java", "year": 2017, "text": "First steps in game development with LibGDX." }
+  ]
+}

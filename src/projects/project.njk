@@ -1,0 +1,87 @@
+---
+layout: base.njk
+pagination:
+  data: caseStudies
+  size: 1
+  alias: project
+  addAllPagesToCollections: true
+permalink: "/projects/{{ project.slug }}/"
+eleventyComputed:
+  title: "{{ project.title }}"
+  description: "{{ project.tagline }}"
+---
+{%- set p = project %}
+<article class="wrap case">
+  <p class="crumbs"><a href="/#work">← All work</a></p>
+  <header class="case-head">
+    <p class="eyebrow">
+      <span class="tag">{{ p.kind }}</span>
+      <span>by {{ p.by }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ p.platform }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ p.years }}</span>
+    </p>
+    <h1>{{ p.title }}</h1>
+    <p class="lede">{{ p.tagline }}</p>
+    <p class="status"><span class="dot" aria-hidden="true"></span>Status: {{ p.status }}</p>
+    {%- if p.links.length %}
+    <p class="actions">
+      {%- for l in p.links %}<a class="button" href="{{ l.url }}">{{ l.label }} ↗</a>{% endfor %}
+    </p>
+    {%- endif %}
+  </header>
+
+  {%- if p.images.length %}
+  <div class="gallery shape-{{ p.imageShape }}">
+    {%- for img in p.images %}
+    <img src="{{ img.src }}" alt="{{ img.alt }}" loading="{{ 'eager' if loop.first else 'lazy' }}" decoding="async"
+      {%- if p.imageShape == 'phone' %} width="480" height="853"{% else %} width="960" height="977"{% endif %}>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  <div class="case-body">
+    <section>
+      <h2>Overview</h2>
+      <p>{{ p.summary }}</p>
+      {%- if p.kind == "Client work" %}
+      <p class="note">This is client work, so the client's name, branding and screenshots are left out.</p>
+      {%- endif %}
+    </section>
+
+    <section>
+      <h2>My role</h2>
+      <p>{{ p.role }}</p>
+    </section>
+
+    <section>
+      <h2>What I built</h2>
+      <ul class="ticks">
+        {%- for h in p.highlights %}<li>{{ h | inlineCode | safe }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    {%- if p.challenges.length %}
+    <section>
+      <h2>Hard parts</h2>
+      {%- for c in p.challenges %}<p>{{ c }}</p>{% endfor %}
+    </section>
+    {%- endif %}
+
+    <aside class="case-side" aria-label="Facts">
+      {%- if p.metrics.length %}
+      <dl class="metrics stacked">
+        {%- for m in p.metrics %}<div><dt>{{ m.label }}</dt><dd>{{ m.value }}</dd></div>{% endfor %}
+      </dl>
+      {%- endif %}
+      <h2 class="small-head">Stack</h2>
+      <ul class="chips">{% for s in p.stack %}<li>{{ s }}</li>{% endfor %}</ul>
+    </aside>
+  </div>
+
+  <nav class="pager" aria-label="More case studies">
+    {%- if pagination.href.previous %}<a href="{{ pagination.href.previous }}">← {{ caseStudies[pagination.pageNumber - 1].title }}</a>{% else %}<span></span>{% endif %}
+    {%- if pagination.href.next %}<a href="{{ pagination.href.next }}">{{ caseStudies[pagination.pageNumber + 1].title }} →</a>{% endif %}
+  </nav>
+</article>

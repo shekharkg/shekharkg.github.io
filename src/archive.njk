@@ -1,0 +1,23 @@
+---
+layout: base.njk
+permalink: /archive/
+title: Archive
+description: Android apps Shekhar Kumar Gupta built and published between 2014 and 2016.
+---
+<section class="wrap section">
+  <p class="crumbs"><a href="/">← Home</a></p>
+  <header class="section-head">
+    <h1>Archive: 2014–2016</h1>
+    <p class="muted">The Android apps from the first version of this site. They're no longer on the Play Store, but they're where I learned to ship.</p>
+  </header>
+  <ul class="grid">
+    {%- for a in archive %}
+    <li class="tile archive-tile">
+      <img src="{{ a.image }}" alt="{{ a.title }} screenshot" loading="lazy" decoding="async" width="900" height="650">
+      <h2 class="h3">{{ a.title }} <span class="muted small">{{ a.year }}</span></h2>
+      <p>{{ a.text }}</p>
+      {%- if a.repo %}<p><a class="text-link" href="{{ a.repo }}">Source on GitHub ↗</a></p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
