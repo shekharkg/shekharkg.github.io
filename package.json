@@ -2,7 +2,7 @@
   "name": "shekharkg-portfolio",
   "private": true,
   "type": "module",
-  "description": "Portfolio of Shekhar Kumar Gupta: static Eleventy site on Firebase Hosting (shekharkg.com).",
+  "description": "Portfolio of Shekhar Kumar Gupta: static Eleventy site on Firebase Hosting (shekharkg.web.app).",
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",

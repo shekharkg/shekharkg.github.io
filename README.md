@@ -1,10 +1,10 @@
-# shekharkg.com
+# shekharkg.web.app
 
 Portfolio of Shekhar Kumar Gupta: software engineer, building under the Quill Byte studio.
 
 - Static HTML from [Eleventy](https://www.11ty.dev/) and one CSS file. **No JavaScript, cookies, analytics or third-party requests.** `npm run check` fails the build if any sneak in.
-- Hosted on **Firebase Hosting** at `shekharkg.com`.
-- `shekharkg.github.io` now only redirects to `shekharkg.com`, and still serves the original `privacy-policy.html` (see [GitHub Pages](#github-pages)).
+- Hosted on **Firebase Hosting** at https://shekharkg.web.app (Firebase project `shekharkg`). The custom domain `shekharkg.com` isn't connected yet; see [Custom domain](#custom-domain).
+- `shekharkg.github.io` only redirects to `shekharkg.web.app`, and still serves the original `privacy-policy.html` (see [GitHub Pages](#github-pages)).
 - Plan and decisions: [`docs/portfolio-refresh-plan.md`](docs/portfolio-refresh-plan.md).
 
 ## Work on it
@@ -44,7 +44,7 @@ firebase projects:create <project-id> --display-name "shekharkg.com"
 firebase use --add <project-id>          # writes .firebaserc
 ```
 
-Then in the Firebase console, go to **Hosting → Add custom domain**, add `shekharkg.com` (and `www.shekharkg.com` as a redirect), and add the A and TXT records it shows at your domain registrar.
+The custom domain is a separate step: see [Custom domain](#custom-domain).
 
 Every release:
 
@@ -53,15 +53,24 @@ npm run oss        # optional: refresh open-source contributions
 npm run deploy     # build → check → firebase deploy --only hosting
 ```
 
+## Custom domain
+
+When `shekharkg.com` is ready to point at Firebase:
+
+1. In the Firebase console, go to **Hosting → Add custom domain** and add `shekharkg.com` (and `www.shekharkg.com` as a redirect).
+2. Add the records it shows at your DNS provider. The domain currently resolves through Cloudflare; set the new records to **DNS only** (grey cloud) until Firebase has issued the certificate.
+3. Change `url` in `src/_data/site.js` to `https://shekharkg.com` and run `npm run deploy`.
+4. Replace `https://shekharkg.web.app` with `https://shekharkg.com` in `github-pages/index.html` and `github-pages/404.html`, and push to `master`.
+
 ## Email
 
-`mail@shekharkg.com` only works once the domain has MX records. Set up a mail provider or a forwarding service for the domain at the same time as the DNS records above.
+`mail@shekharkg.com` is served by Google (the domain's MX records point to `smtp.google.com`). Leave those records alone when adding the hosting records.
 
 ## GitHub Pages
 
 `github-pages/` is published to `shekharkg.github.io` by `.github/workflows/pages-redirect.yml`. It contains:
 
-- `index.html` and `404.html`, which redirect to the same path on `shekharkg.com`
+- `index.html` and `404.html`, which redirect to the same path on `shekharkg.web.app`
 - `privacy-policy.html`, an untouched copy of the Savescape privacy policy, because its Play listing links to `shekharkg.github.io/privacy-policy.html`
 
 In **Settings → Pages**, set **Source** to **GitHub Actions** before merging this into `master`. Otherwise Pages will try to serve the repository root, which no longer has an `index.html`.

@@ -1,4 +1,4 @@
-# Serves github-pages/ at shekharkg.github.io: a redirect to shekharkg.com,
+# Serves github-pages/ at shekharkg.github.io: a redirect to shekharkg.web.app,
 # plus the original privacy-policy.html that Savescape's Play listing links to.
 # Requires Settings → Pages → Source: "GitHub Actions".
 name: GitHub Pages redirect

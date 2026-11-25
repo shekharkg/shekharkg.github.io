@@ -2,7 +2,7 @@
 export default {
   name: "Shekhar Kumar Gupta",
   role: "Software engineer",
-  url: "https://shekharkg.com",
+  url: "https://shekharkg.web.app", // switch to https://shekharkg.com once the custom domain is connected
   email: "mail@shekharkg.com",
   location: "Bangalore, India",
   since: 2013,
