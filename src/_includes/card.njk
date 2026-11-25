@@ -33,7 +33,7 @@
       <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" decoding="async" width="480" height="853">
       {%- endfor %}
     {%- else %}
-      <img src="{{ p.images[0].src }}" alt="{{ p.images[0].alt }}" loading="lazy" decoding="async" width="960" height="977">
+      <img src="{{ p.images[0].src }}" alt="{{ p.images[0].alt }}" loading="lazy" decoding="async" width="{{ p.images[0].w or 960 }}" height="{{ p.images[0].h or 977 }}">
     {%- endif %}
   </figure>
   {%- else %}

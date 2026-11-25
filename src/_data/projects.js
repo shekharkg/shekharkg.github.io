@@ -1,5 +1,5 @@
 // One entry per project. `caseStudy: true` gives it a page at /projects/<slug>/.
-// Client work is anonymised: no client names, logos, domains or screenshots.
+// Projects with `anonymised: true` are client work: no client names, logos, domains or screenshots.
 // scripts/check.mjs fails the build if a client name slips into the output.
 export default [
   {
@@ -75,43 +75,50 @@ export default [
       { value: "287", label: "golden checks" },
     ],
     links: [],
-    images: [{ src: "/assets/img/projects/tickover/preview.jpg", alt: "Tickover design: fuel log timeline and the add-fuel form with odometer digits" }],
+    images: [{ src: "/assets/img/projects/tickover/preview.jpg", alt: "Tickover design: fuel log timeline and the add-fuel form with odometer digits", w: 960, h: 977 }],
     imageShape: "wide",
     caseStudy: true,
     featured: true,
   },
   {
-    slug: "school-saas",
-    title: "School management SaaS",
+    slug: "school-manager",
+    title: "School Manager",
     by: "Quill Byte",
-    kind: "Client work",
-    platform: "Web",
+    kind: "Product",
+    platform: "Web (PWA)",
     years: "2026",
-    status: "Client project",
-    tagline: "A multi-tenant platform that runs attendance, assessments and fees for many schools at once.",
+    status: "Live, with a 30-day free trial",
+    tagline: "A multi-tenant platform that runs attendance, report cards, fees and parent updates for many schools at once.",
     summary:
-      "A software-as-a-service platform for Indian schools. A super admin onboards schools; each school's admins and teachers manage students, attendance, assessments, report cards and fee collection, fully isolated from every other school.",
-    role: "Lead engineer: data model, multi-tenant security, payments and messaging integrations, front end.",
-    stack: ["React", "TypeScript", "Vite", "Firebase Auth", "Firestore", "Cloud Functions", "Razorpay"],
+      "School management software for Indian schools, from Nursery to Class 12. A platform operator onboards schools; each school's admins, teachers and parents get their own dashboards for students, attendance, assessments, CBSE-style report cards, timetables, fee ledgers and payments, notices and SMS, all isolated from every other school on the same deployment.",
+    role: "Lead engineer: data model, multi-tenant security, payments and messaging integrations, backend API and front end.",
+    stack: ["React 19", "TypeScript", "Vite", "Firebase Auth", "Firestore", "Cloud Functions", "Express", "Razorpay", "MSG91"],
     highlights: [
-      "Tenant isolation enforced in Firestore Security Rules, not just in the UI",
-      "Role-based access for super admin, school admin and teacher",
-      "School and user creation through Cloud Functions so privileged operations never run in the browser",
-      "Subscription billing with GST and fee collection over UPI, cards and net banking",
-      "DLT-compliant transactional SMS, IST dates, April–March academic years and CBSE-style grading",
-      "Regression and end-to-end test scripts for assessments, Firestore access and billing flows",
+      "Four roles (platform operator, school admin, teacher, parent), with parents signing in by phone number and their child's date of birth",
+      "Tenant isolation enforced in Firestore Security Rules and re-checked in every API handler, with the rules covered by Emulator tests",
+      "Razorpay payments where the server creates every order and fixes the amount; verification and a signed, de-duplicated webhook can't double-apply a payment",
+      "Per-student, per-term fee ledgers with carry-forward of unpaid balances and an idempotent term rollover that never deletes history",
+      "Plan-based feature gating and server-side subscription pricing (per-student, with a floor, billed monthly, quarterly or yearly, plus 18% GST)",
+      "DLT-registered SMS templates through MSG91, WhatsApp alerts and email",
+      "Installable PWA with an offline cache and saved drafts, so teachers can take attendance on a bad connection",
+      "170 automated tests on the shared fee, ledger and billing modules",
     ],
     challenges: [
-      "Designing a data model where a missing rule can't leak one school's records to another.",
-      "Fitting Indian compliance (GST invoices, DLT SMS templates) into a self-serve onboarding flow.",
+      "Designing a data model where one missing scope check can't leak one school's records to another, while keeping Security Rules inside Firestore's per-request expression budget.",
+      "Re-platforming the product from Ghana to India: money in paise, +91 phone normalisation, IST day keys, an April–March year with three terms and the CBSE grading scale.",
+      "Money correctness: ledgers merge rather than overwrite, so historical fee amounts stay frozen when a school changes its fee structure.",
     ],
     metrics: [
       { value: "295", label: "commits" },
-      { value: "100+", label: "React components" },
-      { value: "3", label: "role levels" },
+      { value: "170", label: "automated tests" },
+      { value: "4", label: "user roles" },
     ],
-    links: [],
-    images: [],
+    links: [{ label: "Live site", url: "https://skoolio-in.web.app" }],
+    images: [
+      { src: "/assets/img/projects/school-manager/landing.jpg", alt: "School Manager landing page: automate report cards, fee tracking and parent communication", w: 960, h: 600 },
+      { src: "/assets/img/projects/school-manager/admin-dashboard.jpg", alt: "School admin dashboard with live KPIs, weekly class attendance and student demographics (demo data)", w: 960, h: 458 },
+    ],
+    imageShape: "wide",
     caseStudy: true,
     featured: true,
   },
@@ -186,6 +193,7 @@ export default [
   // More work: cards only.
   {
     slug: "travel-site",
+    anonymised: true,
     title: "Tour operator website",
     by: "Quill Byte",
     kind: "Client work",
@@ -198,6 +206,7 @@ export default [
   },
   {
     slug: "fragrance-shop",
+    anonymised: true,
     title: "Home-fragrance e-commerce",
     by: "Quill Byte",
     kind: "Client work",

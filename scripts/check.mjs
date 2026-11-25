@@ -30,7 +30,7 @@ const required = [
 for (const r of required) if (!existsSync(join(out, r))) problems.push(`missing ${r}`);
 
 // Names that must never appear: anonymised clients. Case-insensitive.
-const forbidden = [/ghumlo/i, /ode\s*home/i, /\bpatna\b/i, /school[- ]manager/i];
+const forbidden = [/ghumlo/i, /ode\s*home/i, /\bpatna\b/i];
 // Indian mobile numbers in any common format.
 const phone = /(\+91[\s-]*)?\(?\+?91\)?[\s-]*[6-9]\d{4}[\s-]?\d{5}\b/;
 

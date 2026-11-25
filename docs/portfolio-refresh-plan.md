@@ -208,7 +208,7 @@ flowchart LR
 | Question | Decision | Effect on the build |
 |---|---|---|
 | Private repos going public | None | No repo links on projects; each featured project gets a case study instead. Open source = old public repos + future upstream PRs |
-| Client and family work | Anonymised | No names, domains, logos or screenshots; `check.mjs` blocks the names |
+| Client and family work | Anonymised, **except School Manager** (updated 2026-11-25: link to https://skoolio-in.web.app with screenshots) | Travel and e-commerce projects: no names, domains, logos or screenshots; `check.mjs` blocks those names |
 | Contact | `mail@shekharkg.com`, no phone | Needs MX records once the domain is revived |
 | Employment history | Left out for now | No timeline section |
 | Quill Byte | Presented as the studio | Projects read "by Quill Byte" |
