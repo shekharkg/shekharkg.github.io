@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- set pageTitle = (title + " · " + site.name) if title else (site.name + " · " + site.role) %}
+  {%- set pageDescription = description or site.description %}
+  {%- set canonical = page.url | absolute(site.url) %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription }}">
+  <meta name="author" content="{{ site.name }}">
+  <link rel="canonical" href="{{ canonical }}">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1014" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="{{ 'article' if project else 'website' }}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  {%- if page.url == "/" %}
+  <script type="application/ld+json">{{ {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": site.name,
+    "jobTitle": site.role,
+    "url": site.url,
+    "email": "mailto:" + site.email,
+    "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+    "worksFor": { "@type": "Organization", "name": site.studio.name },
+    "sameAs": [site.links[0].url, site.links[1].url]
+  } | json | safe }}</script>
+  {%- endif %}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/" aria-label="{{ site.name }}, home">
+        <span class="mark" aria-hidden="true">SK</span>
+        <span class="brand-name">{{ site.name }}</span>
+      </a>
+      <nav aria-label="Main">
+        <ul>
+          {%- for item in site.nav %}
+          <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+{{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <p>© {{ page.date | year }} {{ site.name }} · {{ site.studio.name }}</p>
+      <ul class="inline-links">
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        {%- for l in site.links %}
+        <li><a href="{{ l.url }}" rel="me">{{ l.label }}</a></li>
+        {%- endfor %}
+      </ul>
+      <p class="muted small">No cookies, no tracking, no JavaScript.</p>
+    </div>
+  </footer>
+</body>
+</html>

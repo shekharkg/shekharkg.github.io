@@ -1,26 +1,71 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [Freelancer](http://startbootstrap.com/template-overviews/freelancer/)
+# shekharkg.com
 
-[Freelancer](http://startbootstrap.com/template-overviews/freelancer/) is a one page freelancer portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, and a working PHP contact form.
+Portfolio of Shekhar Kumar Gupta: software engineer, building under the Quill Byte studio.
 
-## Getting Started
+- Static HTML from [Eleventy](https://www.11ty.dev/) and one CSS file. **No JavaScript, cookies, analytics or third-party requests.** `npm run check` fails the build if any sneak in.
+- Hosted on **Firebase Hosting** at `shekharkg.com`.
+- `shekharkg.github.io` now only redirects to `shekharkg.com`, and still serves the original `privacy-policy.html` (see [GitHub Pages](#github-pages)).
+- Plan and decisions: [`docs/portfolio-refresh-plan.md`](docs/portfolio-refresh-plan.md).
 
-To use this theme, choose one of the following options to get started:
-* Download the latest release on Start Bootstrap
-* Fork this repository on GitHub
+## Work on it
 
-## Bugs and Issues
+```sh
+npm install
+npm start          # http://localhost:8080, rebuilds on save
+npm run build      # → _site/
+npm run check      # no third-party requests or scripts, no client names or phone numbers, no broken links
+```
 
-Have a bug or an issue with this theme? [Open a new issue](https://github.com/IronSummitMedia/startbootstrap-freelancer/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/freelancer/).
+## Add or change content
 
-## Creator
+| What | Where |
+|---|---|
+| Name, pitch, email, links, skills | `src/_data/site.js` |
+| Projects (featured + "more work") | `src/_data/projects.js`. `caseStudy: true` gives a project a page at `/projects/<slug>/` |
+| Screenshots | `src/assets/img/projects/<slug>/`, as JPEGs about 480 px wide for phones and 960 px for wide images |
+| 2014–2016 apps | `src/_data/archive.js` |
+| Open source | `src/_data/oss.json`. Edit `repos` by hand; run `npm run oss` to refresh `contributions` from GitHub (merged PRs to other people's repos) |
 
-Start Bootstrap was created by and is maintained by **David Miller**, Managing Parter at [Iron Summit Media Strategies](http://www.ironsummitmedia.com/).
+Client work is anonymised. Never add a client's name, domain, logo or screenshots. `scripts/check.mjs` keeps a list of names that must not appear.
 
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+To resize a screenshot on macOS:
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+```sh
+sips -s format jpeg -s formatOptions 78 --resampleWidth 480 in.png --out src/assets/img/projects/<slug>/name.jpg
+```
 
-## Copyright and License
+## Deploy (Firebase Hosting)
 
-Copyright 2013-2015 Iron Summit Media Strategies, LLC. Code released under the [Apache 2.0](https://github.com/IronSummitMedia/startbootstrap-freelancer/blob/gh-pages/LICENSE) license.
+One-time setup:
+
+```sh
+firebase login
+firebase projects:create <project-id> --display-name "shekharkg.com"
+firebase use --add <project-id>          # writes .firebaserc
+```
+
+Then in the Firebase console, go to **Hosting → Add custom domain**, add `shekharkg.com` (and `www.shekharkg.com` as a redirect), and add the A and TXT records it shows at your domain registrar.
+
+Every release:
+
+```sh
+npm run oss        # optional: refresh open-source contributions
+npm run deploy     # build → check → firebase deploy --only hosting
+```
+
+## Email
+
+`mail@shekharkg.com` only works once the domain has MX records. Set up a mail provider or a forwarding service for the domain at the same time as the DNS records above.
+
+## GitHub Pages
+
+`github-pages/` is published to `shekharkg.github.io` by `.github/workflows/pages-redirect.yml`. It contains:
+
+- `index.html` and `404.html`, which redirect to the same path on `shekharkg.com`
+- `privacy-policy.html`, an untouched copy of the Savescape privacy policy, because its Play listing links to `shekharkg.github.io/privacy-policy.html`
+
+In **Settings → Pages**, set **Source** to **GitHub Actions** before merging this into `master`. Otherwise Pages will try to serve the repository root, which no longer has an `index.html`.
+
+## License
+
+Code: [Apache-2.0](LICENSE). Text, screenshots and project content: © Shekhar Kumar Gupta, all rights reserved.
